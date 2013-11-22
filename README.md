@@ -57,6 +57,15 @@ the following two environment variables:
 Once both of these are set, the integration tests will be executed both when running the `FullBuild` MSBuild target,
 and when running the `Octokit.Tests.Integration` assembly through an xUnit.net-friendly test runner.
 
+### Organisation Tests
+
+That's right, there's a couple of these tests in Octokit.net for organizations.
+
+If you are working against these tests, you'll need to create an organization for the test user through the website based on this convention:
+
+ - for user "Foo" the organization is "Foo-org"
+ - for user "shiftkey-tester" the organization is "shiftkey-tester-org"
+
 ## Problems?
 
 Octokit is 100% certified to be bug free. If you find an issue with our 
