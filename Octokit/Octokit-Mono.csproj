@@ -229,6 +229,8 @@
     <Compile Include="Models\Response\BlobReference.cs" />
     <Compile Include="Clients\RepoCollaboratorsClient.cs" />
     <Compile Include="Clients\IRepoCollaboratorsClient.cs" />
+    <Compile Include="Helpers\IReadOnlyList.cs" />
+    <Compile Include="Helpers\TaskShims.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

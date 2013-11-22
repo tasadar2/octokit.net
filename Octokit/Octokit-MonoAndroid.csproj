@@ -239,6 +239,8 @@
     <Compile Include="Models\Request\NewReference.cs" />
     <Compile Include="Models\Request\ReferenceUpdate.cs" />
     <Compile Include="Models\Response\Reference.cs" />
+    <Compile Include="Helpers\IReadOnlyList.cs" />
+    <Compile Include="Helpers\TaskShims.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
 </Project>
