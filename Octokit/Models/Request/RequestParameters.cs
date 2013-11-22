@@ -2,7 +2,7 @@
 #if !PORTABLE
 using System.Collections.Concurrent;
 #else
-using Octokit.Helpers;
+using System.Collections.Immutable;
 #endif
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using Octokit.Internal;
 
+
 namespace Octokit
 {
     /// <summary>
@@ -18,12 +19,31 @@ namespace Octokit
     /// </summary>
     public abstract class RequestParameters
     {
+#if PORTABLE
+        IImmutableDictionary<Type, List<PropertyParameter>> _propertiesMap =
+            ImmutableDictionary.Create<Type, List<PropertyParameter>>();
+#else 
         static readonly ConcurrentDictionary<Type, List<PropertyParameter>> _propertiesMap =
             new ConcurrentDictionary<Type, List<PropertyParameter>>();
+#endif
 
         public virtual IDictionary<string, string> ToParametersDictionary()
         {
+#if PORTABLE
+            List<PropertyParameter> map;
+            if (_propertiesMap.ContainsKey(GetType()))
+            {
+                map = _propertiesMap[GetType()];
+            }
+            else
+            {
+                map = GetPropertyParametersForType(GetType());
+                var kvp = new KeyValuePair<Type, List<PropertyParameter>>(GetType(), map);
+                _propertiesMap = ImmutableDictionary.CreateRange<Type, List<PropertyParameter>>(_propertiesMap.Concat(new [] { kvp } ));
+            }
+#else
             var map = _propertiesMap.GetOrAdd(GetType(), GetPropertyParametersForType);
+#endif
             return (from property in map
                     let value = property.GetValue(this)
                     let key = property.Key
