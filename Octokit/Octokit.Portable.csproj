@@ -30,7 +30,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\Portable\</OutputPath>
     <IntermediateOutputPath>obj\Release\Portable</IntermediateOutputPath>
-    <DefineConstants>TRACE;SIMPLE_JSON_OBJARRAYINTERNAL;SIMPLE_JSON_INTERNAL;SIMPLE_JSON_NO_LINQ_EXPRESSION;NET_45;NETFX_CORE;PORTABLE;</DefineConstants>
+    <DefineConstants>TRACE;SIMPLE_JSON_OBJARRAYINTERNAL;SIMPLE_JSON_INTERNAL;NETFX_CORE;PORTABLE;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -253,9 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NET_45
+#if NETFX_CORE
 using System.Collections.ObjectModel;
 #endif
 using System.Threading.Tasks;
