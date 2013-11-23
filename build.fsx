@@ -84,33 +84,44 @@ Target "IntegrationTests" (fun _ ->
 )
 
 Target "CreateOctokitPackage" (fun _ ->
-    let net45Dir = packagingDir @@ "lib/net45/"
-    let netcore45Dir = packagingDir @@ "lib/netcore45/"
-    CleanDirs [net45Dir; netcore45Dir]
+    let net40Dir = packagingDir @@ "lib/net40/"
+    let portableDir = packagingDir @@ "lib/portable-net45+win8/"
+    CleanDirs [net40Dir; portableDir; ]
 
-    CopyFile net45Dir (buildDir @@ "Release/Net45/Octokit.dll")
-    CopyFile netcore45Dir (buildDir @@ "Release/NetCore45/Octokit.dll")
+    CopyFile net40Dir (buildDir @@ "Release/Net40/Octokit.dll")
+    CopyFile portableDir (buildDir @@ "Release/Portable/Octokit.dll")
     CopyFiles packagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
 
     NuGet (fun p -> 
         {p with
             Authors = authors
             Project = projectName
-            Description = projectDescription                               
+            Description = projectDescription
             OutputPath = packagingRoot
             Summary = projectSummary
             WorkingDir = packagingDir
             Version = releaseNotes.AssemblyVersion
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Dependencies =
+                ["Microsoft.Bcl",  GetPackageVersion "./packages/" "Microsoft.Bcl"
+                 "Microsoft.Bcl.Async", GetPackageVersion "./packages/" "Microsoft.Bcl.Async"
+                 "Microsoft.Bcl.Build", GetPackageVersion "./packages/" "Microsoft.Bcl.Build"
+                 "Microsoft.Net.Http", GetPackageVersion "./packages/" "Microsoft.Net.Http" ]
+            DependenciesByFramework =
+                [ { FrameworkVersion  = "portable-net45+win8"
+                    Dependencies =  
+                        ["Microsoft.Bcl.Immutable", GetPackageVersion "./packages/" "Microsoft.Bcl.Immutable"] } ]
             Publish = hasBuildParam "nugetkey" }) "octokit.nuspec"
 )
 
 Target "CreateOctokitReactivePackage" (fun _ ->
-    let net45Dir = reactivePackagingDir @@ "lib/net45/"
-    CleanDirs [net45Dir]
+    let net40Dir = packagingDir @@ "lib/net40/"
+    let portableDir = packagingDir @@ "lib/portable-net45+win8/"
+    CleanDirs [net40Dir; portableDir]
 
-    CopyFile net45Dir (reactiveBuildDir @@ "Release/Net45/Octokit.Reactive.dll")
+    CopyFile net40Dir (reactiveBuildDir @@ "Release/Net40/Octokit.Reactive.dll")
+    CopyFile portableDir (reactiveBuildDir @@ "Release/Portable/Octokit.Reactive.dll")
     CopyFiles reactivePackagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
 
     NuGet (fun p -> 
