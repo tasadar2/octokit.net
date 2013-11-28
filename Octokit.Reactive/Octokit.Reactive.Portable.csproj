@@ -135,6 +135,8 @@
     <Compile Include="Clients\ObservableActivitiesClient.cs" />
     <Compile Include="ObservableGitHubClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Clients\IObservableReferencesClient.cs" />
+    <Compile Include="Clients\ObservableReferencesClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
