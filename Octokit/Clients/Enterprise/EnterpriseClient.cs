@@ -19,6 +19,8 @@
             License = new EnterpriseLicenseClient(apiConnection);
             Organization = new EnterpriseOrganizationClient(apiConnection);
             SearchIndexing = new EnterpriseSearchIndexingClient(apiConnection);
+            PreReceiveEnvironments = new EnterprisePreReceiveEnvironmentsClient(apiConnection);
+            PreReceiveHooks = new EnterprisePreReceiveHooksClient(apiConnection);
         }
 
         /// <summary>
@@ -60,5 +62,21 @@
         /// See the <a href="https://developer.github.com/v3/enterprise/search_indexing/">Enterprise Search Indexing API documentation</a> for more information.
         ///</remarks>
         public IEnterpriseSearchIndexingClient SearchIndexing { get; private set; }
+
+        /// <summary>
+        /// A client for GitHub's Enterprise Pre-receive Environments API
+        /// </summary>
+        /// <remarks>
+        /// See the <a href="https://developer.github.com/v3/enterprise-admin/pre_receive_environments/">Enterprise Pre-receive Environments API documentation</a> for more information.
+        ///</remarks>
+        public IEnterprisePreReceiveEnvironmentsClient PreReceiveEnvironments { get; private set; }
+
+        /// <summary>
+        /// A client for GitHub's Enterprise Pre-receive Hooks API
+        /// </summary>
+        /// <remarks>
+        /// See the <a href="https://developer.github.com/v3/enterprise-admin/pre_receive_hooks/">Enterprise Pre-receive Hooks API documentation</a> for more information.
+        ///</remarks>
+        public IEnterprisePreReceiveHooksClient PreReceiveHooks { get; private set; }
     }
 }
